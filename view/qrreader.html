@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="barcode-scanner"></div>
+    <script src="//unpkg.com/javascript-barcode-reader"></script>
+    <script>
+      import Quagga from "quagga";
+      function laodBarcode() {
+        if (
+          navigator.mediaDevices &&
+          typeof navigator.mediaDevices.getUserMedia === "function"
+        ) {
+          Quagga.init(
+            {
+              inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector("#yourElement"), // Or '#yourElement' (optional)
+              },
+              decoder: {
+                readers: ["code_128_reader"],
+              },
+            },
+            function (err) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              console.log("Initialization finished. Ready to start");
+              Quagga.start();
+            }
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
